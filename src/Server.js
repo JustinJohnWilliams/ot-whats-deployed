@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 
 class Server extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
-    const { details, index } = this.props;
+    const { details } = this.props;
 
     return (
-      <li className="server">
+      <li className="server" onClick={() => this.props.loadServer(details.id)}>
         {details.name}
       </li>
     )

@@ -2,27 +2,40 @@ import React, { Component } from 'react';
 import logo from '../public/favicon.ico';
 import './App.css';
 import servers from './servers';
-import { map } from 'lodash';
+import { filter, sortBy, find } from 'lodash';
 import Server from './Server';
+import ServerDetails from './ServerDetails';
 
 class App extends Component {
   constructor() {
     super();
 
-    this.loadServers = this.loadServers.bind(this);
+    this.loadServer = this.loadServer.bind(this);
 
     this.state = {
       servers: {},
-      applications: {}
+      activeServer: {}
     };
   }
 
-  loadServers = (e) => {
-    e.preventDefault();
+  componentDidMount() {
+    this.loadServers();
+  }
 
+  loadServers = () => {
     this.setState({
-      servers: servers
+      servers:
+        sortBy(
+          filter(servers, (s) => s.name.toLowerCase().startsWith('corp'))
+        , ['sort_priority', 'name'])
     });
+  };
+
+  loadServer = (id) => {
+    const currentActiveServer = {...this.state.activeServer};
+    const servers = {...this.state.servers};
+    const activeServer = find(servers, ['id', id]) || currentActiveServer;
+    this.setState({ activeServer });
   };
 
   render() {
@@ -32,19 +45,16 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>What's Deployed</h2>
         </div>
-        <button onClick={(e) => this.loadServers(e)}>Load Servers</button>
         <div className="whats-deployed">
           <ul className="list-of-servers">
             {
                 Object
                   .keys(this.state.servers)
-                  .map(id => <Server key={id} index={id} details={this.state.servers[id]} />)
+                  .map(id => <Server key={id} details={this.state.servers[id]} loadServer={this.loadServer} />)
             }
           </ul>
           <div>
-            <h1>
-              Some Server
-            </h1>
+            <ServerDetails server={this.state.activeServer} />
           </div>
         </div>
       </div>

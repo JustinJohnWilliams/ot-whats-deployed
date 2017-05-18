@@ -51,15 +51,14 @@ ul {
   min-width: 300px;
 }
 .list-of-servers {
-  padding-top: 5px;
-  margin-top: 2rem;
 }
 .server {
-  padding-bottom: 2rem;
-  padding-top: 2rem;
-  margin-bottom: 5px;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  margin-bottom: 2px;
   clear: both;
   overflow: hidden;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
