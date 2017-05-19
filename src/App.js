@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import logo from '../public/favicon.ico';
 import './App.css';
-import servers from './servers';
 import { filter, sortBy, find } from 'lodash';
 import Server from './Server';
 import ServerDetails from './ServerDetails';
+import base from './base';
 
 class App extends Component {
   constructor() {
@@ -14,28 +14,47 @@ class App extends Component {
 
     this.state = {
       servers: {},
-      activeServer: {}
+      activeServer: {},
+      serverDetails: {}
     };
   }
 
-  componentDidMount() {
-    this.loadServers();
+  componentWillMount() {
+    this.ref = base.syncState('servers', {
+      context: this,
+      state: 'servers'
+    });
   }
 
-  loadServers = () => {
-    this.setState({
-      servers:
-        sortBy(
-          filter(servers, (s) => s.name.toLowerCase().startsWith('corp'))
-        , ['sort_priority', 'name'])
-    });
-  };
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+      const newServers = {...nextState.servers};
+      this.setState({
+        servers:
+          sortBy(
+            filter(newServers, (s) => s.name.toLowerCase().startsWith('corp'))
+          , ['sort_priority', 'name'])
+      });
+  }
 
   loadServer = (id) => {
     const currentActiveServer = {...this.state.activeServer};
     const servers = {...this.state.servers};
     const activeServer = find(servers, ['id', id]) || currentActiveServer;
     this.setState({ activeServer });
+
+    base.fetch(id.toString(),
+      {
+        context: this,
+        asArray: true,
+        then(data) {
+          console.log(data);
+          this.setState({serverDetails: data});
+      }
+    });
   };
 
   render() {
@@ -54,7 +73,7 @@ class App extends Component {
             }
           </ul>
           <div>
-            <ServerDetails server={this.state.activeServer} />
+            <ServerDetails server={this.state.activeServer} details={this.state.serverDetails} />
           </div>
         </div>
       </div>
