@@ -3,15 +3,15 @@ import React, { Component } from 'react';
 class ServerDetails extends Component {
   render() {
 
-    const { server, details } = this.props;
+    const { server, applications } = this.props;
     return (
       <div>
-        <h2>{server.name}</h2>
+        <h2>{server}</h2>
         <ul>
           {
             Object
-              .keys(details)
-              .map(id => <li key={id}>{details[id].package}</li>)
+              .keys(applications)
+              .map(id => <li key={id}>{applications[id].package}</li>)
           }
         </ul>
       </div>

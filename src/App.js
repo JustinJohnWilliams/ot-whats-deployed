@@ -30,32 +30,9 @@ class App extends Component {
     base.removeBinding(this.ref);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-      const newServers = {...nextState.servers};
-      this.setState({
-        servers:
-          sortBy(
-            filter(newServers, (s) => s.name.toLowerCase().startsWith('corp'))
-          , ['sort_priority', 'name'])
-      });
+  loadServer = (name) => {
+
   }
-
-  loadServer = (id) => {
-    const currentActiveServer = {...this.state.activeServer};
-    const servers = {...this.state.servers};
-    const activeServer = find(servers, ['id', id]) || currentActiveServer;
-    this.setState({ activeServer });
-
-    base.fetch(id.toString(),
-      {
-        context: this,
-        asArray: true,
-        then(data) {
-          console.log(data);
-          this.setState({serverDetails: data});
-      }
-    });
-  };
 
   render() {
     return (
@@ -69,7 +46,7 @@ class App extends Component {
             {
                 Object
                   .keys(this.state.servers)
-                  .map(id => <Server key={id} details={this.state.servers[id]} loadServer={this.loadServer} />)
+                  .map(id => <Server key={id} name={id} loadServer={this.loadServer} />)
             }
           </ul>
           <div>
