@@ -40,7 +40,7 @@ class App extends Component {
           <h2>What's Deployed</h2>
         </div>
         <div className="whats-deployed">
-          <ul className="list-of-servers">
+          <ul>
             {
                 Object
                   .keys(this.state.servers)

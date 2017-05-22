@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css'
 
 class ServerDetails extends Component {
   render() {
@@ -6,7 +7,7 @@ class ServerDetails extends Component {
     if(name === '') return (<div></div>)
     const applications = servers[name].applications;
     return (
-      <div>
+      <div className='server-details'>
         <h2>
           {name}
         </h2>
@@ -14,7 +15,7 @@ class ServerDetails extends Component {
           {
             Object
               .keys(applications)
-              .map(id => <li className='' key={id}>{applications[id].package}</li>)
+              .map(id => <li key={id}>{applications[id].package}</li>)
           }
         </ul>
       </div>
