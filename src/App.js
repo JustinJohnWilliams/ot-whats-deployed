@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../public/favicon.ico';
 import './App.css';
-import { filter, sortBy, find } from 'lodash';
 import Server from './Server';
 import ServerDetails from './ServerDetails';
 import base from './base';
@@ -14,13 +13,12 @@ class App extends Component {
 
     this.state = {
       servers: {},
-      activeServer: {},
-      serverDetails: {}
+      currentServer: ''
     };
   }
 
   componentWillMount() {
-    this.ref = base.syncState('servers', {
+    this.ref = base.bindToState('servers', {
       context: this,
       state: 'servers'
     });
@@ -31,7 +29,7 @@ class App extends Component {
   }
 
   loadServer = (name) => {
-
+    this.setState({currentServer: name});
   }
 
   render() {
@@ -49,9 +47,7 @@ class App extends Component {
                   .map(id => <Server key={id} name={id} loadServer={this.loadServer} />)
             }
           </ul>
-          <div>
-            <ServerDetails server={this.state.activeServer} details={this.state.serverDetails} />
-          </div>
+          <ServerDetails name={this.state.currentServer} servers={this.state.servers} />
         </div>
       </div>
     );

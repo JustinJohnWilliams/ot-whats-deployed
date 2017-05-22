@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 
 class ServerDetails extends Component {
   render() {
-
-    const { server, applications } = this.props;
+    const { name, servers } = this.props;
+    if(name === '') return (<div></div>)
+    const applications = servers[name].applications;
     return (
       <div>
-        <h2>{server}</h2>
+        <h2>
+          {name}
+        </h2>
         <ul>
           {
             Object
               .keys(applications)
-              .map(id => <li key={id}>{applications[id].package}</li>)
+              .map(id => <li className='' key={id}>{applications[id].package}</li>)
           }
         </ul>
       </div>
