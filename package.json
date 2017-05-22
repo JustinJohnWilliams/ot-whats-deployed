@@ -2,7 +2,7 @@
   "name": "whats-deployed",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://justinjohnwilliams.github.io/whats-deployed/"
+  "homepage": "https://justinjohnwilliams.github.io/whats-deployed/",
   "dependencies": {
     "history": "4.2.0",
     "lodash": "^4.17.4",
