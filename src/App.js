@@ -10,10 +10,14 @@ class App extends Component {
     super();
 
     this.loadServer = this.loadServer.bind(this);
+    this.renderLogin = this.renderLogin.bind(this);
+    this.authenticate = this.authenticate.bind(this);
+    this.authHandler = this.authHandler.bind(this);
 
     this.state = {
       servers: {},
-      currentServer: ''
+      currentServer: '',
+      uid: null
     };
   }
 
@@ -28,11 +32,43 @@ class App extends Component {
     base.removeBinding(this.ref);
   }
 
+  componentDidMount() {
+    base.onAuth((user) => {
+      if(user) {
+        this.authHandler(null, { user });
+      }
+    })
+
+  }
+
   loadServer = (name) => {
     this.setState({currentServer: name});
   }
 
+  authHandler(err, authData) {
+    if(err) {
+      console.error(err);
+      return;
+    }
+
+    this.setState({ uid: authData.user.uid });
+  }
+
+  authenticate() {
+    base.authWithOAuthPopup('github', this.authHandler);
+  }
+
+  renderLogin() {
+    return (
+      <div>
+        <h2>Must Login!!</h2>
+        <button onClick={() => this.authenticate()}>click here to login!</button>
+      </div>
+    )
+  }
+
   render() {
+    if(!this.state.uid) { return this.renderLogin();}
     return (
       <div className="App">
         <div className="App-header">
