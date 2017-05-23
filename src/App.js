@@ -51,6 +51,7 @@ class App extends Component {
       return;
     }
 
+    console.log(authData);
     this.setState({ uid: authData.user.uid });
   }
 
