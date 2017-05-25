@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from '../public/favicon.ico';
+import logo from '../public/logo.png';
 import './App.css';
+import './auth-buttons.css'
 import Server from './Server';
 import ServerDetails from './ServerDetails';
 import base from './base';
@@ -35,7 +36,7 @@ class App extends Component {
   componentDidMount() {
     base.onAuth((user) => {
       if(user) {
-        this.authHandler(null, { user });
+        //this.authHandler(null, { user });
       }
     })
   }
@@ -53,15 +54,32 @@ class App extends Component {
     this.setState({ uid: authData.user.uid });
   }
 
-  authenticate() {
-    base.authWithOAuthPopup('github', this.authHandler);
+  authenticate(provider) {
+    if (provider === 'github') {
+      base.authWithOAuthPopup('github', this.authHandler);
+    } else {
+      alert(`sorry ${provider} is not supported yet!`);
+    }
   }
 
   renderLogin() {
     return (
-      <div>
-        <h2>Must Login!!</h2>
-        <button onClick={() => this.authenticate()}>click here to login!</button>
+      <div className="App">
+        <div className="App-header">
+          <img src={logo} className="App-logo" alt="OT" />
+          <h2>What's Deployed</h2>
+          <div className="login">
+            <p>
+              <a className="btn-auth btn-github large" onClick={() => this.authenticate('github')}>Sign in with <b>github</b></a>
+            </p>
+            <p>
+              <a className="btn-auth btn-facebook large" onClick={() => this.authenticate('facebook')}>Sign in with <b>facebook</b></a>
+            </p>
+            <p>
+              <a className="btn-auth btn-twitter large" onClick={() => this.authenticate('twitter')}>Sign in with <b>twitter</b></a>
+            </p>
+          </div>
+        </div>
       </div>
     )
   }

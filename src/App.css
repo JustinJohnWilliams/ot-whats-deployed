@@ -19,6 +19,12 @@ ul {
   padding: 0;
 }
 
+.login {
+  text-align: center;
+  height: 250px;
+  padding: 20px;
+}
+
 .whats-deployed {
   display: -webkit-box;
   display: -ms-flexbox;
