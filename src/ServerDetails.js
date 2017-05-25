@@ -18,7 +18,7 @@ class ServerDetails extends Component {
               .map(id =>
                 <li key={id}>
                   {
-                    id + '-' + applications[id].branch + '-' + applications[id].version
+                    id.replace('-', '.') + '-' + applications[id].branch + '-' + applications[id].version
                   }
                 </li>)
           }
