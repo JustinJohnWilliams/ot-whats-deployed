@@ -36,7 +36,7 @@ class App extends Component {
   componentDidMount() {
     base.onAuth((user) => {
       if(user) {
-        //this.authHandler(null, { user });
+        this.authHandler(null, { user });
       }
     })
   }
