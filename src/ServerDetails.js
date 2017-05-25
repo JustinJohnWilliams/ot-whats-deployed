@@ -5,7 +5,7 @@ class ServerDetails extends Component {
   render() {
     const { name, servers } = this.props;
     if(name === '') return (<div></div>)
-    const applications = servers[name].applications;
+    const applications = servers[name];
     return (
       <div className='server-details'>
         <h2>
@@ -18,7 +18,7 @@ class ServerDetails extends Component {
               .map(id =>
                 <li key={id}>
                   {
-                    applications[id].name + '-' + applications[id].branch + '-' + applications[id].version
+                    id + '-' + applications[id].branch + '-' + applications[id].version
                   }
                 </li>)
           }

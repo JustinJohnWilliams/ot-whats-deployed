@@ -38,7 +38,6 @@ class App extends Component {
         this.authHandler(null, { user });
       }
     })
-
   }
 
   loadServer = (name) => {
@@ -51,7 +50,6 @@ class App extends Component {
       return;
     }
 
-    console.log(authData);
     this.setState({ uid: authData.user.uid });
   }
 
