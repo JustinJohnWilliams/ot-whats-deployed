@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../public/logo.png';
-import './App.css';
-import './auth-buttons.css'
+import './styles/App.css';
+import './styles/auth-buttons.css'
 import Server from './Server';
 import ServerDetails from './ServerDetails';
 import base from './base';
@@ -71,12 +71,6 @@ class App extends Component {
           <div className="login">
             <p>
               <a className="btn-auth btn-github large" onClick={() => this.authenticate('github')}>Sign in with <b>github</b></a>
-            </p>
-            <p>
-              <a className="btn-auth btn-facebook large" onClick={() => this.authenticate('facebook')}>Sign in with <b>facebook</b></a>
-            </p>
-            <p>
-              <a className="btn-auth btn-twitter large" onClick={() => this.authenticate('twitter')}>Sign in with <b>twitter</b></a>
             </p>
           </div>
         </div>
