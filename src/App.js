@@ -17,8 +17,9 @@ class App extends Component {
 
     this.state = {
       servers: {},
+      availableServers: {},
       currentServer: '',
-      uid: null
+      uid: null,
     };
   }
 
