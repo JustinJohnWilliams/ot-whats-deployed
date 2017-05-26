@@ -3,26 +3,34 @@ import './styles/App.css'
 
 class ServerDetails extends Component {
   render() {
-    const { name, servers } = this.props;
+    const { name, applications } = this.props;
     if(name === '') return (<div></div>)
-    const applications = servers[name];
     return (
-      <div className='server-details'>
-        <h2>
-          {name}
-        </h2>
-        <ul>
-          {
-            Object
-              .keys(applications)
-              .map(id =>
-                <li key={id}>
-                  {
-                    id.replace('-', '.') + '-' + applications[id].branch + '-' + applications[id].version
-                  }
-                </li>)
-          }
-        </ul>
+      <div className='server-card'>
+        <h2>{name}</h2>
+        <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Project</th>
+                  <th>Branch</th>
+                  <th>Version</th>
+                </tr>
+              </thead>
+              <tbody>
+              {
+                Object
+                  .keys(applications)
+                  .map(id =>
+                    <tr key={id}>
+                      <td>{id.replace('-', '.')}</td>
+                      <td>{applications[id].branch}</td>
+                      <td>{applications[id].version}</td>
+                    </tr>)
+              }
+              </tbody>
+            </table>
+        </div>
       </div>
     )
   }

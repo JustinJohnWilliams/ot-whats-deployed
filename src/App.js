@@ -94,7 +94,7 @@ class App extends Component {
                   .map(id => <Server key={id} name={id} loadServer={this.loadServer} />)
             }
           </ul>
-          <ServerDetails name={this.state.currentServer} servers={this.state.servers} />
+          <ServerDetails name={this.state.currentServer} applications={this.state.servers[this.state.currentServer]} />
         </div>
       </div>
     );
