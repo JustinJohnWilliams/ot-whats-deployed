@@ -23,7 +23,7 @@ class ServerDetails extends Component {
                   .keys(applications)
                   .map(id =>
                     <tr key={id}>
-                      <td>{id.replace('-', '.')}</td>
+                      <td>{id.replace(/-/g, '.')}</td>
                       <td>{applications[id].branch}</td>
                       <td>{applications[id].version}</td>
                     </tr>)
